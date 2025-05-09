@@ -1,78 +1,79 @@
-<script>
-    const socket = io();
+const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
 
-    // Load existing messages
-    socket.on('loadMessages', (messages) => {
-        messages.forEach(message => {
-            appendMessage(message);
-        });
-    });
-
-    // Listen for new messages
-    socket.on('newMessage', (message) => {
-        appendMessage(message);
-    });
-
-    function appendMessage(message) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'flex items-start justify-end mt-6';
-        
-        const messageContent = `
-            <div class="flex-1 max-w-xl">
-                <div class="flex items-baseline mb-1 justify-end">
-                    <p class="text-xs text-od-light/50 mr-2">${new Date(message.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
-                    <p class="font-bold">${message.sender}</p>
-                </div>
-                <div class="message-bubble p-4 mb-2 bg-gradient-to-r from-od-primary/20 to-od-secondary/20">
-                    <p class="text-od-light">${message.text}</p>
-                </div>
-                <div class="text-xs text-od-light/50 flex items-center space-x-4 justify-end">
-                    <button class="hover:text-od-primary"><i class="far fa-heart"></i></button>
-                    <button class="hover:text-od-primary"><i class="fas fa-code"></i></button>
-                    <button class="hover:text-od-primary"><i class="fas fa-reply"></i></button>
-                </div>
-            </div>
-            <div class="user-avatar w-10 h-10 rounded-lg ml-4 overflow-hidden flex-shrink-0">
-                <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-full h-full object-cover" alt="You">
-            </div>
-        `;
-        
-        messageDiv.innerHTML = messageContent;
-        document.getElementById('chat-messages').appendChild(messageDiv);
-        document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: '*',
     }
+});
 
-    // Function to send a message
-    function sendMessage(recipient, text) {
-        const message = {
-            sender: 'You', // Replace with actual sender's name
-            recipient: recipient,
-            text: text,
-            time: new Date()
-        };
+// Store users: map usernames/userIds to socket ids
+const users = new Map();
 
-        // Emit the message to the server
-        socket.emit('sendMessage', message);
-    }
+/**
+ * Helper to get socket id by username
+ * @param {string} username 
+ * @returns {string|null}
+ */
+function getSocketIdByUsername(username) {
+    return users.get(username) || null;
+}
 
-    // Listen for incoming messages
-    socket.on('receiveMessage', (message) => {
-        appendMessage(message);
+io.on('connection', (socket) => {
+    console.log('A user connected:', socket.id);
+
+    // Register user with username sent from client
+    socket.on('register', (username) => {
+        users.set(username, socket.id);
+        console.log(`User registered: ${username} with socket ID ${socket.id}`);
+
+        // Broadcast updated user list to all
+        io.emit('usersList', Array.from(users.keys()));
     });
 
-    // Example of how to handle sending a message
-    document.getElementById('message-input').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter' && this.value.trim() !== '') {
-            const recipient = currentChatUser ; // Get the current chat user
-            sendMessage(recipient, this.value);
-            this.value = ''; // Clear input
+    // Handle user disconnecting
+    socket.on('disconnect', () => {
+        // Remove user from users map
+        for (const [username, sid] of users.entries()) {
+            if (sid === socket.id) {
+                users.delete(username);
+                console.log(`User disconnected: ${username}`);
+
+                // Broadcast updated user list to all
+                io.emit('usersList', Array.from(users.keys()));
+                break;
+            }
         }
     });
 
-    // Example of how to set the current chat user
-    let currentChatUser  = 'Sarah Miller'; // Default chat user
-    function setCurrentChat(userName) {
-        currentChatUser  = userName;
-        // Update the chat header or any other UI elements as needed
-    }
-</script>
+    // Handle sendMessage event
+    // message object expected: { sender, recipient, text, time }
+    socket.on('sendMessage', (message) => {
+        console.log('sendMessage received:', message);
+        if (!message.recipient || !message.text) {
+            console.error('Invalid message: missing recipient or text');
+            return;
+        }
+        const recipientSocketId = getSocketIdByUsername(message.recipient);
+        if (recipientSocketId) {
+            // Send to recipient only
+            io.to(recipientSocketId).emit('receiveMessage', message);
+            // Optionally also send back to sender to confirm sending
+            // socket.emit('receiveMessage', message);
+        } else {
+            console.warn(`Recipient ${message.recipient} not connected.`);
+            // Optionally notify sender that recipient is not connected
+            socket.emit('userOffline', message.recipient);
+        }
+    });
+});
+
+// Start server
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+});
+
