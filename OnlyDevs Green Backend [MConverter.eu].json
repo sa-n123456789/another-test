@@ -42,4 +42,37 @@
         document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
     }
 
-    // Message functionality
+    // Function to send a message
+    function sendMessage(recipient, text) {
+        const message = {
+            sender: 'You', // Replace with actual sender's name
+            recipient: recipient,
+            text: text,
+            time: new Date()
+        };
+
+        // Emit the message to the server
+        socket.emit('sendMessage', message);
+    }
+
+    // Listen for incoming messages
+    socket.on('receiveMessage', (message) => {
+        appendMessage(message);
+    });
+
+    // Example of how to handle sending a message
+    document.getElementById('message-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && this.value.trim() !== '') {
+            const recipient = currentChatUser ; // Get the current chat user
+            sendMessage(recipient, this.value);
+            this.value = ''; // Clear input
+        }
+    });
+
+    // Example of how to set the current chat user
+    let currentChatUser  = 'Sarah Miller'; // Default chat user
+    function setCurrentChat(userName) {
+        currentChatUser  = userName;
+        // Update the chat header or any other UI elements as needed
+    }
+</script>
