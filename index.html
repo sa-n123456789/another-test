@@ -181,9 +181,9 @@
                 </div>
                 
                 <div class="space-y-2">
-                    <div class="flex items-center p-3 rounded-lg hover:bg-od-mid/50 cursor-pointer group">
+                    <div class="flex items-center p-3 rounded-lg hover:bg-od-mid/50 cursor-pointer group" onclick="setCurrentChat('Alex Johnson')">
                         <div class="user-avatar w-10 h-10 rounded-lg mr-3 flex-shrink-0 overflow-hidden">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-full h-full object-cover" alt="User">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-full h-full object-cover" alt="User ">
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex justify-between items-baseline">
@@ -195,9 +195,9 @@
                         <div class="w-2 h-2 rounded-full bg-od-primary ml-2 flex-shrink-0"></div>
                     </div>
                     
-                    <div class="flex items-center p-3 rounded-lg bg-od-mid/30 cursor-pointer group">
+                    <div class="flex items-center p-3 rounded-lg bg-od-mid/30 cursor-pointer group" onclick="setCurrentChat('Sarah Miller')">
                         <div class="user-avatar w-10 h-10 rounded-lg mr-3 flex-shrink-0 overflow-hidden">
-                            <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User">
+                            <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User ">
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex justify-between items-baseline">
@@ -216,9 +216,9 @@
                         <div class="w-2 h-2 rounded-full bg-od-secondary ml-2 flex-shrink-0"></div>
                     </div>
                     
-                    <div class="flex items-center p-3 rounded-lg hover:bg-od-mid/50 cursor-pointer group">
+                    <div class="flex items-center p-3 rounded-lg hover:bg-od-mid/50 cursor-pointer group" onclick="setCurrentChat('Michael Chen')">
                         <div class="user-avatar w-10 h-10 rounded-lg mr-3 flex-shrink-0 overflow-hidden">
-                            <img src="https://randomuser.me/api/portraits/men/75.jpg" class="w-full h-full object-cover" alt="User">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" class="w-full h-full object-cover" alt="User ">
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex justify-between items-baseline">
@@ -230,9 +230,9 @@
                         <div class="w-2 h-2 rounded-full bg-od-primary ml-2 flex-shrink-0"></div>
                     </div>
                     
-                    <div class="flex items-center p-3 rounded-lg hover:bg-od-mid/50 cursor-pointer group">
+                    <div class="flex items-center p-3 rounded-lg hover:bg-od-mid/50 cursor-pointer group" onclick="setCurrentChat('Emma Wilson')">
                         <div class="user-avatar w-10 h-10 rounded-lg mr-3 flex-shrink-0 overflow-hidden">
-                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-full h-full object-cover" alt="User">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-full h-full object-cover" alt="User ">
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex justify-between items-baseline">
@@ -261,15 +261,15 @@
     </div>
     
     <!-- Chat Area -->
-    <div class="flex-1 flex flex-col bg-od-dark">
+    <div class="flex-1 flex flex-col bg-od-dark" style="width: 60%;">
         <!-- Chat Header -->
         <div class="h-20 border-b border-od-mid flex items-center px-6">
             <div class="flex items-center">
                 <div class="user-avatar w-12 h-12 rounded-lg mr-4 overflow-hidden">
-                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User">
+                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User ">
                 </div>
                 <div>
-                    <h2 class="font-bold flex items-center">
+                    <h2 class="font-bold flex items-center" id="current-chat-user">
                         Sarah Miller
                         <span class="od-badge ml-2">UI/UX</span>
                     </h2>
@@ -303,7 +303,7 @@
             
             <div class="flex items-start">
                 <div class="user-avatar w-10 h-10 rounded-lg mr-4 overflow-hidden flex-shrink-0">
-                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User">
+                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User ">
                 </div>
                 <div class="flex-1">
                     <div class="flex items-baseline mb-1">
@@ -346,7 +346,7 @@
             
             <div class="flex items-start">
                 <div class="user-avatar w-10 h-10 rounded-lg mr-4 overflow-hidden flex-shrink-0">
-                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User">
+                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User ">
                 </div>
                 <div class="flex-1">
                     <div class="flex items-baseline mb-1">
@@ -369,7 +369,7 @@
             
             <div class="flex items-start">
                 <div class="user-avatar w-10 h-10 rounded-lg mr-4 overflow-hidden flex-shrink-0">
-                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User">
+                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User ">
                 </div>
                 <div class="flex-1">
                     <div class="flex items-baseline mb-1">
@@ -403,7 +403,7 @@
                         <button class="text-od-light/70 hover:text-od-primary">
                             <i class="far fa-smile"></i>
                         </button>
-                        <button class="w-8 h-8 rounded-lg bg-gradient-to-r from-od-primary to-od-secondary flex items-center justify-center text-od-dark">
+                        <button class="w-8 h-8 rounded-lg bg-gradient-to-r from-od-primary to-od-secondary flex items-center justify-center text-od-dark" onclick="sendMessage(currentChatUser )">
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
@@ -417,7 +417,7 @@
     <div class="w-80 bg-od-dark border-l border-od-mid p-6 overflow-y-auto scrollbar-custom">
         <div class="flex flex-col items-center mb-8">
             <div class="user-avatar w-24 h-24 rounded-xl mb-4 overflow-hidden">
-                <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User">
+                <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User ">
             </div>
             <h3 class="font-bold text-xl flex items-center">
                 Sarah Miller
@@ -489,20 +489,21 @@
         // Message functionality
         const messageInput = document.getElementById('message-input');
         const chatMessages = document.getElementById('chat-messages');
-        
+        let currentChatUser  = 'Sarah Miller'; // Default chat user
+
         messageInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter' && messageInput.value.trim() !== '') {
-                sendMessage();
+                sendMessage(currentChatUser );
             }
         });
         
         document.querySelector('.fa-paper-plane').addEventListener('click', function() {
             if (messageInput.value.trim() !== '') {
-                sendMessage();
+                sendMessage(currentChatUser );
             }
         });
         
-        function sendMessage() {
+        function sendMessage(recipient) {
             // Create new message element
             const messageDiv = document.createElement('div');
             messageDiv.className = 'flex items-start justify-end mt-6';
@@ -565,7 +566,7 @@
             
             const messageContent = `
                 <div class="user-avatar w-10 h-10 rounded-lg mr-4 overflow-hidden flex-shrink-0">
-                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User">
+                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User ">
                 </div>
                 <div class="flex-1">
                     <div class="flex items-baseline mb-1">
@@ -606,42 +607,9 @@
             
             const typingContent = `
                 <div class="user-avatar w-10 h-10 rounded-lg mr-4 overflow-hidden flex-shrink-0">
-                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User">
+                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-full h-full object-cover" alt="User ">
                 </div>
                 <div class="flex-1">
                     <div class="flex items-baseline mb-1">
                         <p class="font-bold mr-2">Sarah Miller</p>
-                        <p class="text-xs text-od-light/50">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="typing-indicator">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <p class="text-xs text-od-light/70 ml-2">Sarah is typing on OnlyDevs...</p>
-                    </div>
-                </div>
-            `;
-            
-            typingDiv.innerHTML = typingContent;
-            chatMessages.appendChild(typingDiv);
-            
-            // Scroll to bottom
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            // Remove after 2-5 seconds
-            setTimeout(() => {
-                typingDiv.remove();
-                // 50% chance to send another message
-                if (Math.random() > 0.5) {
-                    simulateReply();
-                }
-            }, Math.random() * 3000 + 2000);
-        }
-        
-        // Initial scroll to bottom
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    </script>
-</body>
-</html>
+                        <p class="text-xs text-od-light/50">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'
